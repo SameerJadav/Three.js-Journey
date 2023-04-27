@@ -1,5 +1,6 @@
 import './style.css';
 import * as t from 'three';
+import gsap from 'gsap';
 
 // Scene
 const scene = new t.Scene();
@@ -65,4 +66,14 @@ const renderer = new t.WebGLRenderer({
   canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
-renderer.render(scene, camera);
+
+// Animation
+gsap.to(group.position, { duration: 1, delay: 1, y: 2 });
+gsap.to(group.position, { duration: 1, delay: 2, y: 0 });
+
+const animate = () => {
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(animate);
+};
+
+animate();

@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  gsap:
+    specifier: 3.5.1
+    version: 3.5.1
   three:
     specifier: ^0.151.3
     version: 0.151.3
@@ -247,6 +250,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /gsap@3.5.1:
+    resolution: {integrity: sha512-EMV0RSUKZNeTUzLKAizGlwxVOUyif3/g8I3S1aA/hf3gbqwBvmQ02x1RdTBQNQMOpHCVBv9y/vaHwfctoAg8zw==}
+    dev: false
 
   /nanoid@3.3.6:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
