@@ -77,13 +77,13 @@ const scene = new t.Scene();
  * mesh.rotation.set(1, 0.5, 3.14156);
  */
 
-// Group
+/**Group
 const group = new t.Group();
 scene.add(group);
 
 const cube1 = new t.Mesh(
-  new t.BoxGeometry(1, 1, 1),
-  new t.MeshBasicMaterial({ color: 0xff0000 })
+  new t.BoxGeometry(1, 1, 1, 2, 2, 2),
+  new t.MeshBasicMaterial({ color: 0xe3d8f2, wireframe: true })
 );
 group.add(cube1);
 
@@ -100,6 +100,24 @@ const cube3 = new t.Mesh(
 );
 cube3.position.x = 1;
 group.add(cube3);
+*/
+
+// Create geometry by own
+const geometry = new t.BufferGeometry();
+const position = new Float32Array([0, 0, 0, 0, 1, 0, 1, 0, 0]);
+const positionAttribute = new t.BufferAttribute(position, 3);
+geometry.setAttribute('position', positionAttribute);
+const material = new t.MeshBasicMaterial({ color: 0xe3d8f2, wireframe: true });
+const mesh = new t.Mesh(geometry, material);
+scene.add(mesh);
+
+/** For creating random triangles
+const count = 25;
+const position = new Float32Array(count * 3 * 3);
+for (let i = 0; i < position.length; i++) {
+  position[i] = (Math.random() - 0.5) * 5;
+}
+*/
 
 // Camera
 const camera = new t.PerspectiveCamera(75, sizes.width / sizes.height);
@@ -139,7 +157,7 @@ const animate = () => {
 
   // Update controls
   control.update();
-  camera.lookAt(group.position);
+  camera.lookAt(mesh.position);
   renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
