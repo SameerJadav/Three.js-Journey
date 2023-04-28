@@ -5,9 +5,46 @@ import gsap from 'gsap';
 
 // Sizes
 const sizes = {
-  width: 600,
-  height: 400,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
+
+// Resize
+window.addEventListener('resize', () => {
+  // Update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+
+  // Check for pixel ratio
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// Full-screen
+window.addEventListener('dblclick', () => {
+  const fullscreenElement =
+    document.fullscreenElement || document.webkitFullscreenElement;
+
+  if (!fullscreenElement) {
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+});
 
 // Cursor
 const cursor = {
@@ -75,6 +112,7 @@ const renderer = new t.WebGLRenderer({
   canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // Orbit controls
 const control = new OrbitControls(camera, canvas);
