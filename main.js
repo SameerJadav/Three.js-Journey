@@ -1,6 +1,23 @@
 import './style.css';
 import * as t from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import gsap from 'gsap';
+
+// Sizes
+const sizes = {
+  width: 600,
+  height: 400,
+};
+
+// Cursor
+const cursor = {
+  x: 0,
+  y: 0,
+};
+window.addEventListener('mousemove', (event) => {
+  cursor.x = event.clientX / sizes.width - 0.5;
+  cursor.y = -(event.clientY / sizes.height - 0.5);
+});
 
 // Scene
 const scene = new t.Scene();
@@ -25,8 +42,6 @@ const scene = new t.Scene();
 
 // Group
 const group = new t.Group();
-group.position.z = 0.5;
-group.rotation.y = 0.5;
 scene.add(group);
 
 const cube1 = new t.Mesh(
@@ -49,12 +64,6 @@ const cube3 = new t.Mesh(
 cube3.position.x = 1;
 group.add(cube3);
 
-// Sizes
-const sizes = {
-  width: 800,
-  height: 600,
-};
-
 // Camera
 const camera = new t.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.z = 3;
@@ -67,11 +76,32 @@ const renderer = new t.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
-// Animation
-gsap.to(group.position, { duration: 1, delay: 1, y: 2 });
-gsap.to(group.position, { duration: 1, delay: 2, y: 0 });
+// Orbit controls
+const control = new OrbitControls(camera, canvas);
+control.enableDamping = true;
+
+/**Animation
+ * gsap.to(group.position, { duration: 1, delay: 1, y: 2 });
+ * gsap.to(group.position, { duration: 1, delay: 2, y: 0 });
+ */
 
 const animate = () => {
+  /**
+   * Change the posiotoin of camera
+   * camera.position.x = cursor.x * 10;
+   * camera.position.y = cursor.y * 10;
+   */
+
+  /**
+   * Rotate the camera
+   * camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
+   * camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
+   * camera.position.y = cursor.y * 3;
+   */
+
+  // Update controls
+  control.update();
+  camera.lookAt(group.position);
   renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
