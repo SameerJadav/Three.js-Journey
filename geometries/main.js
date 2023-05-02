@@ -77,31 +77,6 @@ const scene = new t.Scene();
  * mesh.rotation.set(1, 0.5, 3.14156);
  */
 
-/**Group
-const group = new t.Group();
-scene.add(group);
-
-const cube1 = new t.Mesh(
-  new t.BoxGeometry(1, 1, 1, 2, 2, 2),
-  new t.MeshBasicMaterial({ color: 0xe3d8f2, wireframe: true })
-);
-group.add(cube1);
-
-const cube2 = new t.Mesh(
-  new t.BoxGeometry(1, 1, 1),
-  new t.MeshBasicMaterial({ color: 0x00ff00 })
-);
-cube2.position.x = -1;
-group.add(cube2);
-
-const cube3 = new t.Mesh(
-  new t.BoxGeometry(1, 1, 1),
-  new t.MeshBasicMaterial({ color: 0x0000ff })
-);
-cube3.position.x = 1;
-group.add(cube3);
-*/
-
 // Create geometry by own
 const geometry = new t.BufferGeometry();
 const position = new Float32Array([0, 0, 0, 0, 1, 0, 1, 0, 0]);
@@ -136,25 +111,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 const control = new OrbitControls(camera, canvas);
 control.enableDamping = true;
 
-/**Animation
- * gsap.to(group.position, { duration: 1, delay: 1, y: 2 });
- * gsap.to(group.position, { duration: 1, delay: 2, y: 0 });
- */
-
 const animate = () => {
-  /**
-   * Change the posiotoin of camera
-   * camera.position.x = cursor.x * 10;
-   * camera.position.y = cursor.y * 10;
-   */
-
-  /**
-   * Rotate the camera
-   * camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
-   * camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
-   * camera.position.y = cursor.y * 3;
-   */
-
   // Update controls
   control.update();
   camera.lookAt(mesh.position);
